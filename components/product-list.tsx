@@ -4,23 +4,22 @@ import { dancingScript } from "~/pages";
 import useSWR from "swr";
 import { type ProductsResult } from "~/db/query";
 
-const fetcher = async () => (await fetch("/api/get-products")).json();
+const fetcher = async () => {
+  const result = await fetch("/api/get-products");
+  const products = await result.json();
+
+  return products;
+};
 
 const ProductList = () => {
-  const { data, isLoading } = useSWR<ProductsResult>("/api/get-products", fetcher);
+  const { data } = useSWR<ProductsResult>("/api/get-products", fetcher);
 
   return (
     <>
       <div className="mx-auto px-8 py-8 sm:py-16 lg:px-32">
         <h2 className="sr-only">Products</h2>
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 xl:gap-x-8 ">
-          {isLoading && (
-            <div className="flex items-center justify-center">
-              <Image src={"/assets/puff.svg"} width={60} height={60} unoptimized alt="Puff" />
-            </div>
-          )}
-          {!isLoading &&
-            data &&
+          {data &&
             data.map(({ product, category }) => (
               <div key={product.id} className="group rounded-lg overflow-hidden" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
                 <div className="w-full flex items-center justify-center h-[300px] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-8 border-b border-gray-100 ">
