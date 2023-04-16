@@ -1,4 +1,4 @@
-import { getCategoryBySlug } from "~/db/query";
+import { getProducts } from "~/db/query";
 
 export const config = {
   runtime: "edge",
@@ -6,7 +6,7 @@ export const config = {
 };
 
 const handler = async () => {
-  const result = await getCategoryBySlug();
+  const result = await getProducts();
 
   return new Response(JSON.stringify(result), { status: 200 });
 };

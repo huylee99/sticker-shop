@@ -18,15 +18,22 @@ const ProductList = () => {
     <>
       <div className="mx-auto px-8 py-8 sm:py-16 lg:px-32">
         <h2 className="sr-only">Products</h2>
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 xl:gap-x-8 ">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 xl:gap-x-8 ">
           {data &&
             data.map(({ product, category }) => (
               <div key={product.id} className="group rounded-lg overflow-hidden" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
                 <div className="w-full flex items-center justify-center h-[300px] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-8 border-b border-gray-100 ">
-                  <Image src={`/assets/${category.name.toLowerCase()}/${product.image}.png`} width={150} height={150} alt={product.slug} className="object-cover object-center group-hover:scale-110 transition-all duration-300" unoptimized />
+                  <Image
+                    src={`/assets/${category.display_name.toLowerCase()}/${product.image}`}
+                    width={150}
+                    height={150}
+                    alt={product.slug}
+                    className="object-cover object-center group-hover:scale-110 transition-all duration-300"
+                    unoptimized
+                  />
                 </div>
                 <div className="p-5">
-                  <h3 className={clsx("text-xl font-bold text-gray-700", dancingScript.className)}>{product.name}</h3>
+                  <h3 className={clsx("text-xl font-bold text-gray-700", dancingScript.className)}>{product.display_name}</h3>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-xl font-medium text-gray-900">${product.price}</span>
                     <button type="button" className="relative inline-block text-sm group/button">
